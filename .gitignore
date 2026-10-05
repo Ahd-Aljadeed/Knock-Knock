@@ -1,0 +1,17 @@
+# Build output
+dist/
+obj/
+ui/dist/
+lib/
+
+# Dependencies
+node_modules/
+
+# Generated test audio
+tests/out/
+
+# Local tooling
+.remember/
+.vs/
+.vscode/
+*.log
