@@ -78,7 +78,7 @@ function mock(msg: Record<string, unknown>) {
         const state: AppState = {
           settings: {
             Version: 1, Listening: true, Sensitivity: 1, RhythmCheck: true, IgnoreWhileTyping: true, AwayMinutes: 3,
-            Flash: true, Sound: true, Clipboard: true, ScreenshotFolder: 'C:\\Users\\you\\Pictures\\Screenshots', Profile: null,
+            Flash: true, Sound: true, Clipboard: true, ScreenshotFolder: 'C:\\Users\\you\\Pictures\\Screenshots', ScreenshotName: 'Knock_{date}_{time}', Profile: null,
             Bindings: [
               { Knocks: 2, Action: 'screenshot', Arg: '1' },
               { Knocks: 3, Action: 'screenshot', Arg: '2' },
