@@ -28,6 +28,7 @@ export interface Settings {
   Sound: boolean
   Clipboard: boolean
   ScreenshotFolder: string
+  ScreenshotName: string
   Profile: KnockProfile | null
   Bindings: Binding[]
 }
