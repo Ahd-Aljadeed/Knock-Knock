@@ -27,7 +27,7 @@ namespace KnockKnock
         public bool Clipboard = true;
         public string ScreenshotFolder;
         public string ScreenshotName;
-        public KnockProfile Profile       // null until the user teaches their knock
+        public KnockProfile Profile;       // null until the user teaches their knock
         public List<Binding> Bindings;
 
         public static readonly string Dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "KnockKnock");
