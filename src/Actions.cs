@@ -72,9 +72,23 @@ namespace KnockKnock
             {
                 using (var g = Graphics.FromImage(bmp)) g.CopyFromScreen(r.Left, r.Top, 0, 0, r.Size);
                 Directory.CreateDirectory(s.ScreenshotFolder);
-                string path = Path.Combine(s.ScreenshotFolder, "Knock_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png");
+                DateTime capturedAt = DateTime.Now;
+                string pattern = string.IsNullOrWhiteSpace(s.ScreenshotName) ? "Knock_{date}_{time}" : s.ScreenshotName;
+                string screen = string.IsNullOrEmpty(arg) ? "all" : arg;
+                string fileName = pattern
+                    .Replace("{date}", capturedAt.ToString("yyyy-MM-dd"))
+                    .Replace("{time}", capturedAt.ToString("HH-mm-ss"))
+                    .Replace("{screen}", screen);
+                foreach (char invalid in Path.GetInvalidFileNameChars())
+                    fileName = fileName.Replace(invalid, '_');
+                for (int i = 0; i < fileName.Length; i++)
+                    if (char.IsControl(fileName[i])) fileName = fileName.Replace(fileName[i], '_');
+                fileName = fileName.Trim();
+                if (string.IsNullOrWhiteSpace(fileName)) fileName = "Knock_" + capturedAt.ToString("yyyy-MM-dd_HH-mm-ss");
+
+                string path = Path.Combine(s.ScreenshotFolder, fileName + ".png");
                 for (int i = 2; File.Exists(path); i++)
-                    path = Path.Combine(s.ScreenshotFolder, "Knock_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_" + i + ".png");
+                    path = Path.Combine(s.ScreenshotFolder, fileName + "_" + i + ".png");
                 bmp.Save(path, ImageFormat.Png);
                 LastScreenshot = path;
                 if (s.Clipboard) { try { Clipboard.SetImage(bmp); } catch { } }
