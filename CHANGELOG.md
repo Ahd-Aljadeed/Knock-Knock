@@ -6,6 +6,7 @@ All notable changes to Knock Knock are listed here. The project follows
 ## [Unreleased]
 
 ### Added
+- Capture only the active window with screenshot actions.
 - Project website at https://ahd-aljadeed.github.io/Knock-Knock/.
 - Install with Scoop; winget manifest ready for submission.
 - Issue templates for bug reports and feature requests.
