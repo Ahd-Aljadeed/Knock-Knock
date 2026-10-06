@@ -17,7 +17,9 @@ namespace KnockKnock
         {
             switch (b.Action)
             {
-                case "screenshot": return b.Arg == "all" ? "Screenshot of all screens" : "Screenshot of screen " + b.Arg;
+                case "screenshot":
+                    if (b.Arg == "active") return "Screenshot of active window";
+                    return b.Arg == "all" ? "Screenshot of all screens" : "Screenshot of screen " + b.Arg;
                 case "open": return "Open " + b.Arg;
                 case "media": return MediaName(b.Arg);
                 case "lock": return "Lock the PC";
@@ -52,10 +54,26 @@ namespace KnockKnock
         // Screens are numbered left to right. A missing screen number falls back to all screens.
         public static Rectangle ScreenArea(string arg)
         {
+            if (arg == "active") return ActiveWindowArea();
             var screens = SortedScreens();
             int n;
             if (screens.Length > 1 && int.TryParse(arg, out n) && n >= 1 && n <= screens.Length) return screens[n - 1].Bounds;
             return SystemInformation.VirtualScreen;
+        }
+
+        static Rectangle ActiveWindowArea()
+        {
+            IntPtr window = Native.GetForegroundWindow();
+            if (window == IntPtr.Zero) throw new Exception("No foreground window to capture");
+
+            Native.RECT bounds;
+            int result = Native.DwmGetWindowAttribute(window, Native.DWMWA_EXTENDED_FRAME_BOUNDS, out bounds, System.Runtime.InteropServices.Marshal.SizeOf(typeof(Native.RECT)));
+            if (result != 0 || bounds.Right <= bounds.Left || bounds.Bottom <= bounds.Top)
+            {
+                if (!Native.GetWindowRect(window, out bounds) || bounds.Right <= bounds.Left || bounds.Bottom <= bounds.Top)
+                    throw new Exception("Could not determine the foreground window bounds");
+            }
+            return Rectangle.FromLTRB(bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
         }
 
         public static Screen[] SortedScreens()

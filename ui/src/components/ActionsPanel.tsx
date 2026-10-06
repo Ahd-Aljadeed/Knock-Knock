@@ -82,19 +82,23 @@ export function ActionsPanel({ bindings, screens, onChange }: { bindings: Bindin
 function ArgEditor({ binding, screens, onChange }: { binding: Binding; screens: ScreenInfo[]; onChange: (v: string | null) => void }) {
   const blurb = ACTIONS.find((a) => a.value === binding.Action)?.blurb
   switch (binding.Action) {
-    case 'screenshot':
-      if (screens.length < 2) return <p className="arg-note">Captures your whole screen. {blurb}.</p>
+    case 'screenshot': {
+      const options = screens.length < 2
+        ? [{ value: 'all', label: 'Whole screen' }]
+        : screens.map((s) => ({ value: String(s.n), label: `Screen ${s.n} · ${s.width}×${s.height}` }))
       return (
         <Segmented
           label="Which screen"
-          value={binding.Arg ?? 'all'}
+          value={screens.length < 2 && binding.Arg !== 'active' ? 'all' : binding.Arg ?? 'all'}
           onChange={onChange}
           options={[
-            ...screens.map((s) => ({ value: String(s.n), label: `Screen ${s.n} · ${s.width}×${s.height}` })),
-            { value: 'all', label: 'All screens' },
+            ...options,
+            ...(screens.length > 1 ? [{ value: 'all', label: 'All screens' }] : []),
+            { value: 'active', label: 'Active window' },
           ]}
         />
       )
+    }
     case 'open':
       return (
         <div className="arg-line">
