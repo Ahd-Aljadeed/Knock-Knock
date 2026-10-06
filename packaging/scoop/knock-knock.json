@@ -1,0 +1,15 @@
+{
+    "version": "1.0.0",
+    "description": "Knock on your desk to take a screenshot or run any action. Windows tray app that detects knocks through the microphone.",
+    "homepage": "https://ahd-aljadeed.github.io/Knock-Knock/",
+    "license": "MIT",
+    "url": "https://github.com/Ahd-Aljadeed/Knock-Knock/releases/download/v1.0.0/KnockKnock.exe",
+    "hash": "7e252d5ac337aae965f9ae4a478cd6d3d4849fbf16807e87e13d8095dccc0617",
+    "bin": "KnockKnock.exe",
+    "shortcuts": [["KnockKnock.exe", "Knock Knock"]],
+    "checkver": "github",
+    "autoupdate": {
+        "url": "https://github.com/Ahd-Aljadeed/Knock-Knock/releases/download/v$version/KnockKnock.exe",
+        "hash": { "url": "$url.sha256" }
+    }
+}
