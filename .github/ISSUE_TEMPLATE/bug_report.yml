@@ -1,0 +1,34 @@
+name: Bug report
+description: Something doesn't work, or knocks are missed or misfire
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: activity
+    attributes:
+      label: Activity panel
+      description: If knocks were missed or ignored, paste what the Activity panel says about them.
+  - type: input
+    id: version
+    attributes:
+      label: Knock Knock version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: "Windows 11 24H2"
+  - type: input
+    id: mic
+    attributes:
+      label: Microphone and PC
+      description: Built-in or USB, and the laptop or mic model if you know it.
+      placeholder: "Built-in, Dell XPS 13"

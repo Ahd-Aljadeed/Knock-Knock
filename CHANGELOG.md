@@ -5,6 +5,11 @@ All notable changes to Knock Knock are listed here. The project follows
 
 ## [Unreleased]
 
+### Added
+- Project website at https://ahd-aljadeed.github.io/Knock-Knock/.
+- Install with Scoop; winget manifest ready for submission.
+- Issue templates for bug reports and feature requests.
+
 ## [1.0.0] - 2026-10-04
 
 First public release.

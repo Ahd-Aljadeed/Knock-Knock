@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahd-aljadeed.github.io/Knock-Knock/sitemap.xml

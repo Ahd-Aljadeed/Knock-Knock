@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock Knock: knock on your desk to take a screenshot (Windows)</title>
+<meta name="description" content="Knock Knock is a free, open-source Windows app that turns knocks on your desk into shortcuts. Knock twice to take a screenshot, or run any app, website, media key or keyboard shortcut. Uses your laptop microphone. No extra hardware.">
+<link rel="canonical" href="https://ahd-aljadeed.github.io/Knock-Knock/">
+<link rel="icon" type="image/png" href="icon-256.png">
+<meta name="theme-color" content="#ef5f3f">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Knock Knock">
+<meta property="og:title" content="Knock Knock: knock on your desk to take a screenshot">
+<meta property="og:description" content="A free, open-source Windows app that turns desk knocks into shortcuts, using the microphone you already have.">
+<meta property="og:url" content="https://ahd-aljadeed.github.io/Knock-Knock/">
+<meta property="og:image" content="https://ahd-aljadeed.github.io/Knock-Knock/og-image.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Knock Knock: knock on your desk to take a screenshot">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Knock Knock",
+  "description": "A free, open-source Windows app that detects knocks on your desk through the microphone and turns them into actions such as taking a screenshot, opening an app or website, media keys, keyboard shortcuts, locking the PC or running a command.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows 10, Windows 11",
+  "softwareVersion": "1.0.0",
+  "license": "https://opensource.org/licenses/MIT",
+  "url": "https://ahd-aljadeed.github.io/Knock-Knock/",
+  "downloadUrl": "https://github.com/Ahd-Aljadeed/Knock-Knock/releases/latest",
+  "codeRepository": "https://github.com/Ahd-Aljadeed/Knock-Knock",
+  "image": "https://ahd-aljadeed.github.io/Knock-Knock/screenshot.png",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f3efe8;
+  --surface: #fbf9f5;
+  --line: rgba(52, 36, 24, 0.11);
+  --line-strong: rgba(52, 36, 24, 0.2);
+  --ink: #1f1a16;
+  --ink-2: #5c534b;
+  --ink-3: #8a7f75;
+  --accent: #ef5f3f;
+  --accent-ink: #b8361f;
+  --accent-soft: rgba(239, 95, 63, 0.12);
+  --grad: linear-gradient(135deg, #ff7a45, #e23d5a);
+  --desk-a: #e9dccb;
+  --desk-b: #d9c6ae;
+  --grain: rgba(120, 84, 50, 0.07);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 1px 2px rgba(40, 24, 12, 0.05), 0 12px 32px -14px rgba(40, 24, 12, 0.25);
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Figtree', 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', Consolas, monospace;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131110;
+    --surface: #1c1917;
+    --line: rgba(255, 238, 222, 0.08);
+    --line-strong: rgba(255, 238, 222, 0.16);
+    --ink: #f3ece4;
+    --ink-2: #bdb2a7;
+    --ink-3: #8c8278;
+    --accent: #ff7650;
+    --accent-ink: #ff9b7d;
+    --accent-soft: rgba(255, 118, 80, 0.14);
+    --desk-a: #2a221c;
+    --desk-b: #1b1612;
+    --grain: rgba(255, 220, 190, 0.035);
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 14px 36px -16px rgba(0, 0, 0, 0.8);
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-underline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.eyebrow {
+  font: 12px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin: 0 0 14px;
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 700; letter-spacing: -0.015em; line-height: 1.08; margin: 0; }
+h2 { font-size: clamp(30px, 4vw, 44px); }
+h3 { font-size: 21px; font-weight: 500; }
+p { margin: 0; }
+.lede { color: var(--ink-2); max-width: 58ch; }
+
+/* Header */
+header { padding: 22px 0; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.brand img { width: 36px; height: 36px; }
+.brand span { font: 700 21px/1 var(--serif); }
+.nav { display: flex; gap: 22px; font-size: 15px; }
+.nav a { color: var(--ink-2); text-decoration: none; }
+.nav a:hover { color: var(--ink); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px; border-radius: 14px;
+  font: 600 16px/1 var(--sans); text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 24px -10px rgba(226, 61, 90, 0.7); }
+.btn-primary:hover { box-shadow: 0 14px 30px -10px rgba(226, 61, 90, 0.8); }
+.btn-ghost { color: var(--ink); border: 1px solid var(--line-strong); background: var(--surface); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Hero */
+.hero { padding: 40px 0 88px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(38px, 5.4vw, 66px); }
+.hero h1 em { font-style: italic; font-weight: 500; color: var(--accent); }
+.hero .lede { margin: 24px 0 32px; font-size: 19px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.meta { margin-top: 18px; font: 13px/1.5 var(--mono); color: var(--ink-3); }
+
+/* Desk demo */
+.desk {
+  position: relative;
+  aspect-ratio: 1 / 0.92;
+  border-radius: 30px;
+  border: 1px solid var(--line-strong);
+  background:
+    repeating-linear-gradient(97deg, transparent 0 9px, var(--grain) 9px 10px, transparent 10px 23px),
+    repeating-linear-gradient(94deg, transparent 0 31px, var(--grain) 31px 33px, transparent 33px 71px),
+    linear-gradient(160deg, var(--desk-a), var(--desk-b));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: block; width: 100%; padding: 0; font: inherit; color: inherit; text-align: left;
+}
+.desk:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.desk .rings { position: absolute; left: 50%; top: 46%; translate: -50% -50%; width: 62%; aspect-ratio: 1; }
+.desk .rings i {
+  position: absolute; inset: 0; margin: auto; border-radius: 50%;
+  border: 1.5px solid var(--accent); opacity: .18;
+}
+.desk .rings i:nth-child(1) { width: 100%; height: 100%; }
+.desk .rings i:nth-child(2) { width: 72%; height: 72%; opacity: .24; }
+.desk .rings i:nth-child(3) { width: 44%; height: 44%; opacity: .32; }
+.desk .dot {
+  position: absolute; left: 50%; top: 46%; translate: -50% -50%;
+  width: 15%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 10px var(--accent-soft), 0 0 50px 10px rgba(239, 95, 63, 0.35);
+  transition: scale .12s ease;
+}
+.desk.hit .dot { scale: 1.25; }
+.ripple {
+  position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px;
+  border-radius: 50%; border: 2px solid var(--accent);
+  pointer-events: none;
+  animation: ripple .7s ease-out forwards;
+}
+@keyframes ripple { to { transform: scale(7); opacity: 0; } }
+.desk .label {
+  position: absolute; left: 24px; right: 24px; bottom: 22px;
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;
+}
+.desk .status { font: 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
+.desk .status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .3; } }
+.desk .count { display: flex; gap: 6px; }
+.desk .count b { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); transition: background .1s; }
+.desk .count b.on { background: var(--accent); }
+.desk .result {
+  position: absolute; left: 24px; top: 22px; right: 24px;
+  font: italic 500 clamp(20px, 2.4vw, 26px)/1.2 var(--serif);
+  min-height: 2.4em;
+}
+.desk .result small { display: block; font: 13px/1.5 var(--sans); font-style: normal; color: var(--ink-3); margin-top: 6px; }
+.flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+.flash.go { animation: flash .45s ease-out; }
+@keyframes flash { 0% { opacity: .85; } 100% { opacity: 0; } }
+
+/* Sections */
+section { padding: 88px 0; }
+.section-head { max-width: 680px; margin-bottom: 44px; }
+.section-head .lede { margin-top: 16px; }
+.alt { background: var(--surface); border-block: 1px solid var(--line); }
+
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+.step { padding: 28px; border-radius: 22px; border: 1px solid var(--line); background: var(--surface); }
+.alt .step { background: var(--bg); }
+.step::before { counter-increment: step; content: '0' counter(step); display: block; font: 13px/1 var(--mono); color: var(--accent-ink); margin-bottom: 18px; }
+.step p { color: var(--ink-2); margin-top: 10px; font-size: 16px; }
+
+.knocks { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.knock { display: flex; flex-direction: column; gap: 14px; padding: 20px 22px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.knock .pips { display: flex; gap: 5px; }
+.knock .pips i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.knock strong { display: block; font-weight: 600; }
+.knock span { color: var(--ink-2); font-size: 15px; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.list { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 18px; }
+.list li { padding-left: 26px; position: relative; color: var(--ink-2); }
+.list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--accent); }
+.list strong { color: var(--ink); font-weight: 600; }
+.shot { border-radius: 18px; border: 1px solid var(--line-strong); box-shadow: var(--shadow); }
+
+.privacy {
+  border-radius: 28px; padding: 48px;
+  background: var(--ink); color: var(--bg);
+  display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center;
+}
+.privacy svg { width: 64px; height: 64px; color: var(--accent); }
+.privacy h2 { color: var(--bg); }
+.privacy p { color: color-mix(in srgb, var(--bg) 75%, transparent); margin-top: 14px; max-width: 64ch; }
+
+.install { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.note { margin-top: 28px; padding: 18px 22px; border-radius: 16px; border: 1px dashed var(--line-strong); color: var(--ink-2); font-size: 15px; }
+code { font: 14px var(--mono); background: var(--accent-soft); color: var(--ink); padding: 2px 6px; border-radius: 6px; }
+
+.faq { max-width: 780px; }
+details { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; list-style: none; padding: 22px 36px 22px 0; position: relative; font: 500 20px/1.3 var(--serif); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; position: absolute; right: 4px; top: 18px; font: 400 26px var(--sans); color: var(--accent); transition: rotate .2s; }
+details[open] summary::after { rotate: 45deg; }
+details p { padding: 0 0 22px; color: var(--ink-2); max-width: 66ch; }
+
+.closing { text-align: center; }
+.closing h2 { margin-bottom: 18px; }
+.closing .lede { margin: 0 auto 32px; }
+.closing .cta { justify-content: center; }
+
+footer { padding: 36px 0 48px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-3); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer a { color: var(--ink-2); }
+
+.reveal { opacity: 0; transform: translateY(14px); animation: in .8s cubic-bezier(.2,.7,.2,1) forwards; }
+.d1 { animation-delay: .08s; } .d2 { animation-delay: .18s; } .d3 { animation-delay: .28s; } .d4 { animation-delay: .4s; }
+@keyframes in { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; opacity: 1; transform: none; }
+  .ripple, .flash.go, .desk .status::before { animation: none; }
+}
+@media (max-width: 880px) {
+  .hero .wrap, .split { grid-template-columns: 1fr; gap: 40px; }
+  .steps, .install { grid-template-columns: 1fr; }
+  .privacy { grid-template-columns: 1fr; padding: 32px; }
+  section { padding: 64px 0; }
+  .nav a:not(.gh) { display: none; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 16px; }
+  .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon-256.png" alt="" width="36" height="36"><span>Knock Knock</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a class="gh" href="https://github.com/Ahd-Aljadeed/Knock-Knock">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow reveal">Free · Open source · Windows 10 &amp; 11</p>
+        <h1 class="reveal d1">Knock on your desk.<br><em>Take a screenshot.</em></h1>
+        <p class="lede reveal d2">Knock Knock is a tiny Windows app that turns knocks on your desk into shortcuts. It listens through the microphone your laptop already has. Knock twice for a screenshot, or set any knock count to open an app, pause music, press a shortcut or lock your PC.</p>
+        <div class="cta reveal d3">
+          <a class="btn btn-primary" href="https://github.com/Ahd-Aljadeed/Knock-Knock/releases/latest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+            Download for Windows
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/Ahd-Aljadeed/Knock-Knock">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+            View source
+          </a>
+        </div>
+        <p class="meta reveal d4">v1.0.0 · single 1.8 MB .exe · no installer, no admin rights · MIT license</p>
+      </div>
+
+      <button class="desk reveal d2" id="desk" type="button" aria-describedby="desk-hint">
+        <span class="result" id="result" aria-live="polite">Try it: knock here twice.<small id="desk-hint">Click or tap the desk. Try 2, 3 or 4 knocks.</small></span>
+        <span class="rings" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label" aria-hidden="true">
+          <span class="status">Listening for knocks</span>
+          <span class="count" id="count"><b></b><b></b><b></b><b></b></span>
+        </span>
+        <span class="flash" id="flash" aria-hidden="true"></span>
+      </button>
+    </div>
+  </section>
+
+  <section class="alt" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Your desk becomes a shortcut button</h2>
+        <p class="lede">No sensors and no special hardware. Knock Knock uses your built-in or USB microphone to hear a knock on the desk your laptop is sitting on.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Teach it your knock</h3><p>Knock 6 times. Knock Knock learns how your knock sounds on your desk: its tone and how quickly it fades.</p></div>
+        <div class="step"><h3>Knock a pattern</h3><p>Knock 2 to 8 times, evenly spaced. Each count is its own shortcut.</p></div>
+        <div class="step"><h3>It runs the action</h3><p>A screenshot is saved as a PNG and copied to your clipboard, or your app opens, or your music pauses. Whatever you picked.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What a knock can do</p>
+        <h2>One knock count, one action</h2>
+        <p class="lede">Out of the box, 2, 3 and 4 knocks take screenshots. Change any count from 2 to 8 to run one of these.</p>
+      </div>
+      <div class="knocks">
+        <div class="knock"><span class="pips"><i></i><i></i></span><div><strong>Screenshot</strong><span>One screen or all of them, saved and copied to the clipboard</span></div></div>
+        <div class="knock"><span class="pips"><i></i><i></i><i></i></span><div><strong>Open anything</strong><span>An app, a file, a folder or a website</span></div></div>
+        <div class="knock"><span class="pips"><i></i><i></i><i></i><i></i></span><div><strong>Media keys</strong><span>Play/pause, next or previous track, mute, volume</span></div></div>
+        <div class="knock"><span class="pips"><i></i><i></i><i></i><i></i><i></i></span><div><strong>Keyboard shortcut</strong><span>Sent to whichever window is active</span></div></div>
+        <div class="knock"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><div><strong>Lock the PC</strong><span>Walk away without reaching for the keyboard</span></div></div>
+        <div class="knock"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><div><strong>Run a command</strong><span>Any command or script you like</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Only real knocks</p>
+        <h2>Bumps, clicks and thuds are ignored</h2>
+        <ul class="list">
+          <li><strong>Learned knock.</strong> Anything that doesn't sound like the knock you taught it is ignored.</li>
+          <li><strong>Rhythm check.</strong> Knocks must be evenly spaced and similarly strong.</li>
+          <li><strong>Ignore while typing.</strong> Nothing fires within a second of keyboard or touchpad use.</li>
+          <li><strong>Ignore when you've been away.</strong> Sitting back down at your desk won't trigger anything.</li>
+          <li><strong>Activity log.</strong> See every knock it acted on, and why it ignored the rest.</li>
+        </ul>
+      </div>
+      <img class="shot" src="screenshot.png" width="1066" height="669" loading="lazy" alt="Knock Knock settings window showing the Teach page and a live knock listener that has just ignored a sound that didn't match the learned knock">
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="privacy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
+        <div>
+          <h2>Nothing is recorded. Nothing leaves your PC.</h2>
+          <p>Audio is analysed 10 milliseconds at a time in memory to measure loudness and tone, then thrown away. The app contains no networking code. When listening is off or your PC is locked, the microphone is fully closed and Windows' mic indicator disappears.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="install">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Install</p>
+        <h2>Running in under a minute</h2>
+      </div>
+      <div class="install">
+        <div class="step"><h3>Download</h3><p>Get <code>KnockKnock.exe</code> from the <a href="https://github.com/Ahd-Aljadeed/Knock-Knock/releases/latest">latest release</a>. It's a single file.</p></div>
+        <div class="step"><h3>Run it</h3><p>The settings window opens and Knock Knock adds itself to startup. It lives in your system tray.</p></div>
+        <div class="step"><h3>Teach it</h3><p>Click <strong>Start teaching</strong> and knock 6 times. That's it.</p></div>
+      </div>
+      <p class="note"><strong>"Windows protected your PC"?</strong> The .exe isn't code-signed yet, so Windows may warn about it. Choose <em>More info → Run anyway</em>. If Smart App Control blocks it, <a href="https://github.com/Ahd-Aljadeed/Knock-Knock#run-from-source">run it from source</a> instead. It's the same code, run through Windows' own PowerShell.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap faq">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions</h2>
+      </div>
+      <details open><summary>Can I take a screenshot on Windows by knocking on my desk?</summary><p>Yes. That's the default: knock twice and Knock Knock saves a PNG of your screen and copies it to the clipboard. Three knocks capture your second screen, four capture all screens.</p></details>
+      <details><summary>Do I need special hardware or a sensor?</summary><p>No. It uses your laptop's built-in microphone, or any USB microphone. It works best when the laptop or mic is on the desk you knock on.</p></details>
+      <details><summary>Does it record or upload audio?</summary><p>No. Audio is analysed in 10 ms chunks in memory and discarded straight away. The app has no networking code at all.</p></details>
+      <details><summary>Will typing or bumping the desk trigger it?</summary><p>Usually not. It learns what your knock sounds like, checks the rhythm, and ignores sounds while you're typing. The Activity panel shows why each ignored sound was rejected.</p></details>
+      <details><summary>Does it work on macOS or Linux?</summary><p>Not yet. Knock Knock runs on Windows 10 and Windows 11.</p></details>
+      <details><summary>Is it free?</summary><p>Yes. It's free and open source under the MIT license. Contributions are welcome on <a href="https://github.com/Ahd-Aljadeed/Knock-Knock">GitHub</a>.</p></details>
+    </div>
+  </section>
+
+  <section class="alt closing">
+    <div class="wrap">
+      <h2>Knock knock.</h2>
+      <p class="lede">Free for Windows 10 and 11. Open source, built in the open, and happy to have help.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/Ahd-Aljadeed/Knock-Knock/releases/latest">Download Knock Knock</a>
+        <a class="btn btn-ghost" href="https://github.com/Ahd-Aljadeed/Knock-Knock/blob/main/CONTRIBUTING.md">Contribute</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Knock Knock · MIT license</span>
+    <span><a href="https://github.com/Ahd-Aljadeed/Knock-Knock">GitHub</a> · <a href="https://github.com/Ahd-Aljadeed/Knock-Knock/issues">Report a bug</a> · <a href="https://github.com/Ahd-Aljadeed/Knock-Knock/blob/main/CHANGELOG.md">Changelog</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var desk = document.getElementById('desk');
+  var result = document.getElementById('result');
+  var flash = document.getElementById('flash');
+  var pips = document.getElementById('count').children;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var actions = {
+    2: ['Screenshot saved.', 'Copied to your clipboard, too.', true],
+    3: ['Screen 2 captured.', 'Change 3 knocks to open an app instead.', true],
+    4: ['All screens captured.', 'Or make it pause your music.', true]
+  };
+  var knocks = 0, timer = null;
+
+  function paint() {
+    for (var i = 0; i < pips.length; i++) pips[i].className = i < knocks ? 'on' : '';
+  }
+  function settle() {
+    var a = actions[knocks];
+    if (knocks === 1) a = ['One knock does nothing.', 'Knock at least twice, so a single bump never fires.'];
+    if (knocks > 4) a = ['That’s ' + knocks + ' knocks.', 'Counts up to 8 can each run their own action.'];
+    result.innerHTML = a[0] + '<small>' + a[1] + '</small>';
+    if (a[2] && !reduce) { flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go'); }
+    knocks = 0;
+    setTimeout(paint, 700);
+  }
+  function knock(x, y) {
+    knocks++;
+    paint();
+    desk.classList.add('hit');
+    setTimeout(function () { desk.classList.remove('hit'); }, 120);
+    if (!reduce) {
+      var r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.left = x + 'px';
+      r.style.top = y + 'px';
+      desk.appendChild(r);
+      setTimeout(function () { r.remove(); }, 750);
+    }
+    clearTimeout(timer);
+    timer = setTimeout(settle, 650);
+  }
+  desk.addEventListener('pointerdown', function (e) {
+    var b = desk.getBoundingClientRect();
+    knock(e.clientX - b.left, e.clientY - b.top);
+  });
+  desk.addEventListener('keydown', function (e) {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      var b = desk.getBoundingClientRect();
+      knock(b.width / 2, b.height * 0.46);
+    }
+  });
+})();
+</script>
+</body>
+</html>

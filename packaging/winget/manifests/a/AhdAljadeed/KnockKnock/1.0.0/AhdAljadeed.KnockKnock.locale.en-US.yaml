@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+PackageIdentifier: AhdAljadeed.KnockKnock
+PackageVersion: 1.0.0
+PackageLocale: en-US
+Publisher: Ahd-Aljadeed
+PublisherUrl: https://github.com/Ahd-Aljadeed
+PublisherSupportUrl: https://github.com/Ahd-Aljadeed/Knock-Knock/issues
+PackageName: Knock Knock
+PackageUrl: https://ahd-aljadeed.github.io/Knock-Knock/
+License: MIT
+LicenseUrl: https://github.com/Ahd-Aljadeed/Knock-Knock/blob/main/LICENSE
+ShortDescription: Knock on your desk to take a screenshot or run any action.
+Description: |-
+  Knock Knock is a free, open-source Windows tray app that detects knocks on your desk
+  through the microphone and turns them into shortcuts. Knock twice to take a screenshot,
+  or set any knock count from 2 to 8 to open an app or website, press media keys, send a
+  keyboard shortcut, lock the PC or run a command. Audio is never recorded or sent anywhere.
+Moniker: knockknock
+Tags:
+- screenshot
+- productivity
+- automation
+- microphone
+- shortcuts
+- tray
+ReleaseNotesUrl: https://github.com/Ahd-Aljadeed/Knock-Knock/releases/tag/v1.0.0
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

@@ -11,9 +11,26 @@
 
 <p align="center">
   <a href="https://github.com/Ahd-Aljadeed/knock-knock/releases/latest"><strong>Download KnockKnock.exe</strong></a>
+  ·
+  <a href="https://ahd-aljadeed.github.io/Knock-Knock/">Website</a>
+  ·
+  <a href="https://github.com/Ahd-Aljadeed/knock-knock/releases/latest"><img src="https://img.shields.io/github/v/release/Ahd-Aljadeed/knock-knock" alt="Latest release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/Ahd-Aljadeed/knock-knock" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4" alt="Windows 10 and 11">
 </p>
 
-![Knock Knock settings window](assets/screenshot.png)
+![Knock Knock settings window: knock 2 times on the desk for a screenshot, 3 times for screen 2, 4 times for all screens](assets/screenshot.png)
+
+## What is Knock Knock?
+
+Knock Knock is a free, open-source Windows app that turns knocks on your desk into
+shortcuts. It listens through your computer's built-in or USB microphone, so you don't need
+any extra hardware. For example, knock twice to take a screenshot, three times to open an
+app or four times to pause your music. Each knock count from 2 to 8 runs the action you
+choose.
+
+It runs locally on Windows 10 and 11 as a single `.exe` in the system tray. Audio is never
+recorded or sent anywhere.
 
 ## What it does
 
@@ -53,6 +70,12 @@ The Activity panel shows every knock it acted on, and the reason it ignored the 
 1. Download `KnockKnock.exe` from the [latest release](https://github.com/Ahd-Aljadeed/knock-knock/releases/latest). It's a single file: no installer, no admin rights.
 2. Run it. The settings window opens and Knock Knock adds itself to startup.
 3. Click **Start teaching** and knock 6 times.
+
+Or install with [Scoop](https://scoop.sh/):
+
+```powershell
+scoop install https://raw.githubusercontent.com/Ahd-Aljadeed/Knock-Knock/main/packaging/scoop/knock-knock.json
+```
 
 Requirements: Windows 10 or 11 with a built-in or USB microphone. The settings window uses the Microsoft Edge WebView2 Runtime, which is built into Windows 11 and most Windows 10 PCs.
 
@@ -95,9 +118,34 @@ mic (raw, any rate) ─► 16 kHz mono ─► 10 ms frames ─► knock detector
 | `ui/` | The settings UI (React + TypeScript + Vite, built into one HTML file) |
 | `tests/` | Synthetic recordings replayed through the detector |
 
+## FAQ
+
+**Can I take a screenshot on Windows by knocking on my desk?**
+Yes. That's the default: knock twice and Knock Knock saves a PNG and copies it to the
+clipboard.
+
+**Do I need special hardware or a sensor?**
+No. It uses the microphone your laptop already has, or any USB microphone.
+
+**Does it record or upload audio?**
+No. Audio is analysed in 10 ms chunks in memory and discarded. The app has no networking
+code. See [Privacy](#privacy).
+
+**Will typing, bumping the desk or putting down a mug trigger it?**
+Usually not. It learns what your knock sounds like, checks the rhythm, and ignores sounds
+while you're typing. The Activity panel shows why each ignored sound was rejected.
+
+**Does it work on macOS or Linux?**
+Not yet. It's Windows-only (10 and 11).
+
+**Is it free?**
+Yes. It's open source under the MIT license.
+
 ## Contributing
 
-Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Issues
+labelled [good first issue](https://github.com/Ahd-Aljadeed/knock-knock/labels/good%20first%20issue)
+are a good place to start.
 
 ## License
 
