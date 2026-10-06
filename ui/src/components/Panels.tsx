@@ -73,6 +73,14 @@ export function General({ s, patch, startup, version }: { s: Settings; patch: Pa
             <button className="btn small" onClick={async () => { const p = await browse('folder'); if (p) patch({ ScreenshotFolder: p }) }}>Change…</button>
           </div>
         </Row>
+        <Row title="Screenshot file name" hint="Use {date}, {time} and {screen}. Invalid filename characters become underscores.">
+          <input
+            className="input mono file-name-input"
+            aria-label="Screenshot file name"
+            value={s.ScreenshotName}
+            onChange={(e) => patch({ ScreenshotName: e.target.value })}
+          />
+        </Row>
         <Row title="Flash the screen" hint="A quick white flash over what was captured.">
           <Switch label="Flash" checked={s.Flash} onChange={(v) => patch({ Flash: v })} />
         </Row>
