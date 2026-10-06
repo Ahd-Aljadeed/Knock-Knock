@@ -26,7 +26,8 @@ namespace KnockKnock
         public bool Sound = true;
         public bool Clipboard = true;
         public string ScreenshotFolder;
-        public KnockProfile Profile;       // null until the user teaches their knock
+        public string ScreenshotName;
+        public KnockProfile Profile       // null until the user teaches their knock
         public List<Binding> Bindings;
 
         public static readonly string Dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "KnockKnock");
@@ -37,6 +38,7 @@ namespace KnockKnock
             return new Settings
             {
                 ScreenshotFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Screenshots"),
+                ScreenshotName = "Knock_{date}_{time}",
                 Bindings = new List<Binding>
                 {
                     new Binding { Knocks = 2, Action = "screenshot", Arg = "1" },
@@ -78,6 +80,7 @@ namespace KnockKnock
         {
             var d = Defaults();
             if (string.IsNullOrEmpty(ScreenshotFolder)) ScreenshotFolder = d.ScreenshotFolder;
+            if (string.IsNullOrWhiteSpace(ScreenshotName)) ScreenshotName = d.ScreenshotName;
             if (Bindings == null) Bindings = d.Bindings;
             Bindings.RemoveAll(b => b == null || b.Knocks < 2 || b.Knocks > 8 || string.IsNullOrEmpty(b.Action));
             Sensitivity = Math.Max(0, Math.Min(2, Sensitivity));
