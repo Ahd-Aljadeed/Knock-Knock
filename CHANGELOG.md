@@ -6,6 +6,7 @@ All notable changes to Knock Knock are listed here. The project follows
 ## [Unreleased]
 
 ### Added
+- Configure screenshot filenames with `{date}`, `{time}` and `{screen}` placeholders.
 - Project website at https://ahd-aljadeed.github.io/Knock-Knock/.
 - Install with Scoop; winget manifest ready for submission.
 - Issue templates for bug reports and feature requests.
